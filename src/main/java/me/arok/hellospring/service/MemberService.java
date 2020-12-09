@@ -3,14 +3,18 @@ package me.arok.hellospring.service;
 import me.arok.hellospring.domain.Member;
 import me.arok.hellospring.repository.MemberRepository;
 import me.arok.hellospring.repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    @Autowired
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
