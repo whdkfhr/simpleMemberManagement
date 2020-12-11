@@ -1,6 +1,7 @@
 package me.arok.hellospring;
 
 import me.arok.hellospring.repository.JdbcMemberRepository;
+import me.arok.hellospring.repository.JdbcTemplateMemberRepository;
 import me.arok.hellospring.repository.MemberRepository;
 import me.arok.hellospring.repository.MemoryMemberRepository;
 import me.arok.hellospring.service.MemberService;
@@ -28,6 +29,7 @@ public class SpringConfig {
     @Bean
     public MemberRepository memberRepository() {
 //        return new MemoryMemberRepository();
-        return new JdbcMemberRepository(dataSource);
+//        return new JdbcMemberRepository(dataSource);
+        return new JdbcTemplateMemberRepository(dataSource);
     }
 }
