@@ -1,24 +1,22 @@
 package me.arok.hellospring;
 
-import me.arok.hellospring.repository.JdbcMemberRepository;
-import me.arok.hellospring.repository.JdbcTemplateMemberRepository;
-import me.arok.hellospring.repository.MemberRepository;
-import me.arok.hellospring.repository.MemoryMemberRepository;
+import me.arok.hellospring.repository.*;
 import me.arok.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 @Configuration
 public class SpringConfig {
 
-    DataSource dataSource;
+    private EntityManager em;
 
     @Autowired
-    public SpringConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public SpringConfig(EntityManager em) {
+        this.em = em;
     }
 
     @Bean
@@ -30,6 +28,7 @@ public class SpringConfig {
     public MemberRepository memberRepository() {
 //        return new MemoryMemberRepository();
 //        return new JdbcMemberRepository(dataSource);
-        return new JdbcTemplateMemberRepository(dataSource);
+//        return new JdbcTemplateMemberRepository(dataSource);
+        return new JpaMemberRepository(em);
     }
 }
