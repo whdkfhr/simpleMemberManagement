@@ -7,24 +7,18 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MemberServiceTest {
+@SpringBootTest
+@Transactional
+public class MemberServiceIntegrationTest {
 
-    MemberService memberService ;
-    MemoryMemberRepository memoryMemberRepository;
-
-    @BeforeEach
-    public void befreEach() {
-        memoryMemberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memoryMemberRepository);
-    }
-
-    @AfterEach
-    public void afterEach() {
-        memoryMemberRepository.clearStore();
-    }
+    @Autowired MemberService memberService ;
+    @Autowired MemberRepository memoryMemberRepository;
 
     @Test
     void 회원가입() {
@@ -53,14 +47,6 @@ class MemberServiceTest {
         memberService.join(member1);
         IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));
         Assertions.assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
-    /*
-        try {
-            memberService.join(member2);
-            fail();
-        } catch (IllegalStateException e) {
-            Assertions.assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
-        }
-    */
 
         // then
 
