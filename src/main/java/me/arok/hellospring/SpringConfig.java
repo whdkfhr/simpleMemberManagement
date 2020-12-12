@@ -1,5 +1,6 @@
 package me.arok.hellospring;
 
+import me.arok.hellospring.aop.TimeTraceAop;
 import me.arok.hellospring.repository.*;
 import me.arok.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
